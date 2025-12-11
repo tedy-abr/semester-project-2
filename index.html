@@ -74,20 +74,17 @@
 
         <template id="listing-template">
           <div class="flex flex-col h-full group">
-            <div class="w-full flex flex-col items-center">
-              <div class="w-full h-52">
-                <img
-                  class="w-full h-full object-cover rounded-xl js-img"
-                  loading="lazy"
-                />
-              </div>
+            <div class="w-full h-52 relative mb-2">
+              <img
+                class="w-full h-full object-cover rounded-xl js-img"
+                loading="lazy"
+              />
               <div
-                class="bg-orange-100 text-right text-xs font-medium text-orange-900 px-1 js-ends-at"
+                class="absolute bottom-2 right-2 bg-orange-100 backdrop-blur-sm text-xs font-bold px-2 py-1 rounded border border-slate-200 text-orange-900 shadow-sm js-ends-at"
               ></div>
             </div>
-
             <div
-              class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col border border-slate-100"
+              class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col border border-slate-100 flex-1"
             >
               <h3
                 class="text-lg font-medium text-heading-color mb-2 truncate js-title"
