@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NidarBid | Auction House</title>
+    <link href="./src/style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header id="header"></header>
+
+    <main>
+      <div class="container-custom py-12">
+        <section class="text-center w-full mb-16">
+          <h1 class="text-6xl font-bold text-heading-color mt-10 mb-6">
+            Find your next great deal
+          </h1>
+          <p class="text-3xl font-light text-heading-color mb-6">
+            Browse live auctions from trusted sellers
+          </p>
+
+          <form id="search-form" class="relative max-w-lg mx-auto">
+            <input
+              type="search"
+              name="search"
+              placeholder="Search auctions, categories or keywords..."
+              class="w-full bg-white py-3.5 px-6 rounded-lg border border-slate-100 shadow-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+            />
+          </form>
+        </section>
+
+        <section
+          class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4"
+        >
+          <h2 class="text-3xl font-medium text-heading-color">Live listings</h2>
+
+          <div class="flex items-center gap-3">
+            <label for="sort" class="text-heading-color text-2xl">Sort</label>
+            <div class="relative">
+              <select
+                id="sort"
+                class="appearance-none bg-white border border-slate-100 text-slate-600 py-2 pl-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shadow-sm"
+              >
+                <option value="created_desc">Newest First</option>
+                <option value="created_asc">Oldest First</option>
+                <option value="endsAt_asc">Ending Soon</option>
+              </select>
+              <div
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500"
+              >
+                <svg
+                  class="h-4 w-4 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div
+          id="listings-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        >
+          <div class="col-span-full text-center py-20 text-slate-400">
+            Loading auctions...
+          </div>
+        </div>
+
+        <template id="listing-template">
+          <div class="flex flex-col h-full group">
+            <div class="w-full flex flex-col items-center">
+              <div class="w-full h-52">
+                <img
+                  class="w-full h-full object-cover rounded-xl js-img"
+                  loading="lazy"
+                />
+              </div>
+              <div
+                class="bg-orange-100 text-right text-xs font-medium text-orange-900 px-1 js-ends-at"
+              ></div>
+            </div>
+
+            <div
+              class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col border border-slate-100"
+            >
+              <h3
+                class="text-lg font-medium text-heading-color mb-2 truncate js-title"
+              ></h3>
+
+              <div
+                class="flex justify-between items-center text-sm text-primary mb-6"
+              >
+                <div>
+                  By
+                  <a class="hover:underline font-medium js-seller"></a>
+                </div>
+                <span class="js-created text-gray-500 font-light"></span>
+              </div>
+
+              <div class="mt-auto mb-4">
+                <div class="flex justify-between items-center font-heading">
+                  <span class="text-sm text-heading-color font-bold"
+                    >Current bid</span
+                  >
+                  <span
+                    class="text-sm font-bold text-heading-color js-bid-amount"
+                  ></span>
+                </div>
+                <a
+                  class="text-sm text-primary font-bold font-heading hover:underline mt-1 js-bidder-name"
+                ></a>
+              </div>
+
+              <p class="text-xs text-heading-color mb-3">
+                Please
+                <a href="/register.html" class="text-primary hover:underline"
+                  >register</a
+                >
+                or
+                <a href="/login.html" class="text-primary hover:underline"
+                  >login</a
+                >
+                to place bids
+              </p>
+
+              <a
+                class="block w-full bg-primary hover:bg-blue-600 text-white text-center font-medium py-2.5 rounded-lg transition-colors shadow-sm js-view-btn"
+              >
+                View Details
+              </a>
+            </div>
+          </div>
+        </template>
+      </div>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/views/home.js"></script>
+  </body>
+</html>
