@@ -4,7 +4,7 @@ export function Navbar() {
   const userName = localStorage.getItem("user_name") || "User";
   const userCredits = localStorage.getItem("user_credits") || 0;
 
-  // Check if logged in, If token exists, isLoggedIn is true
+  // Check if logged in, If token exists
   const isLoggedIn = !!token;
 
   const navLinks = `
@@ -19,15 +19,15 @@ export function Navbar() {
     // Logged In View Dynamic Name & Credits
     authSection = `
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-           <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-md">
+        <a href="/profile.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer">
+           <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-md overflow-hidden">
              ${userName.charAt(0).toUpperCase()}
            </div>
-           <div class="hidden md:block text-sm">
+           <div class="hidden md:block text-sm text-left">
              <p class="font-bold text-slate-800">${userName}</p>
              <p class="text-slate-500">Credits: ${userCredits}</p>
            </div>
-        </div>
+        </a>
         <button id="logout-btn" class="text-red-500 hover:text-red-700 font-medium text-sm ml-2">Log Out</button>
       </div>
     `;

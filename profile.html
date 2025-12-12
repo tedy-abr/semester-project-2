@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile | NidarBid</title>
+    <link href="./src/style.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-slate-50 flex flex-col min-h-screen">
+    <header id="header"></header>
+
+    <main class="flex-grow">
+      <div class="relative mb-24">
+        <div class="w-full h-64 md:h-80 bg-slate-200 overflow-hidden">
+          <img
+            id="profile-banner"
+            class="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1500&q=80"
+            alt="Profile Banner"
+          />
+        </div>
+
+        <div class="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+          <img
+            id="profile-avatar"
+            class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-md object-cover bg-white"
+            src="https://via.placeholder.com/150"
+            alt="Avatar"
+          />
+        </div>
+      </div>
+
+      <div class="container-custom text-center mb-12">
+        <h1
+          id="profile-name"
+          class="text-3xl font-bold text-heading-color mb-2"
+        >
+          Loading...
+        </h1>
+        <p id="profile-email" class="text-slate-500 mb-4 font-light"></p>
+        <p id="profile-credits" class="text-slate-400 text-sm mb-6 hidden">
+          Credits: 0
+        </p>
+
+        <button
+          id="edit-profile-btn"
+          class="bg-primary hover:bg-blue-600 text-white font-medium px-6 py-2 rounded-full transition-colors shadow-sm hidden"
+        >
+          Edit profile
+        </button>
+      </div>
+
+      <div class="container-custom pb-20">
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-heading-color mb-6">
+            My listings
+          </h2>
+          <div id="listings-grid" class="flex flex-col gap-4">
+            <p class="text-slate-400 text-center py-4">No listings found.</p>
+          </div>
+        </section>
+
+        <section id="bids-section" class="mb-12 hidden">
+          <h2 class="text-2xl font-bold text-heading-color mb-6">My bids</h2>
+          <div id="bids-grid" class="flex flex-col gap-4">
+            <p class="text-slate-400 text-center py-4">No bids placed yet.</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <template id="profile-listing-template">
+      <div
+        class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center gap-6"
+      >
+        <div
+          class="w-full sm:w-40 h-40 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden"
+        >
+          <img class="w-full h-full object-contain mix-blend-multiply js-img" />
+        </div>
+
+        <div class="flex-grow text-center sm:text-left w-full">
+          <h3 class="text-xl font-medium text-heading-color mb-2 js-title"></h3>
+
+          <div class="grid grid-cols-2 gap-4 max-w-md mx-auto sm:mx-0 mb-4">
+            <div>
+              <p class="text-xs text-slate-500 uppercase">Ends at</p>
+              <p class="text-sm text-slate-700 js-ends">Dec 31, 2025</p>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 uppercase">Current Bid</p>
+              <p class="text-sm font-bold text-heading-color js-bid">
+                0 Credits
+              </p>
+            </div>
+          </div>
+
+          <a
+            class="inline-block bg-primary hover:bg-blue-600 text-white text-sm font-medium px-6 py-2 rounded-lg transition-colors js-btn"
+          >
+            View Details
+          </a>
+        </div>
+      </div>
+    </template>
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/views/profile.js"></script>
+  </body>
+</html>
