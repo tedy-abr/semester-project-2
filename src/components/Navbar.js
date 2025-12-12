@@ -8,9 +8,9 @@ export function Navbar() {
   const isLoggedIn = !!token;
 
   const navLinks = `
-    <a href="/" class="text-heading-color hover:text-primary font-medium nav-link text-xl">Home</a>
-    <a href="/about.html" class="text-heading-color hover:text-primary font-medium nav-link text-xl">About</a>
-    <a href="/contact.html" class="text-heading-color hover:text-primary font-medium nav-link text-xl">Contact</a>
+    <a href="/" class="text-primary hover:text-secondary font-medium nav-link text-lg">Home</a>
+    <a href="/about.html" class="text-primary hover:text-secondary font-medium nav-link text-lg">About</a>
+    <a href="/contact.html" class="text-primary hover:text-secondary font-medium nav-link text-lg">Contact</a>
   `;
 
   let authSection = "";
@@ -35,15 +35,16 @@ export function Navbar() {
     // Public View
     authSection = `
       <div class="flex items-center gap-3.5">
-        <a href="/login.html" class="text-heading-color font-heading text-xl hover:text-primary font-medium ">Log in</a>
-        <a href="/register.html" class="bg-primary hover:bg-logo font-heading text-xl text-white px-5 py-1.5 rounded-full font-medium shadow-sm">Sign Up</a>
+        <a href="/login.html" class="text-primary font-primary text-base hover:text-secondary transition-all font-semibold border-2 border-gray-300 rounded-full px-6 py-2.5 hover:border-secondary">Log In</a>
+
+        <a href="/register.html" class="bg-secondary hover:bg-hover font-primary text-base text-white px-6 py-2.5 rounded-full font-semibold transition-all transform hover:scale-105">Sign Up</a>
       </div>
     `;
   }
 
   return `
     <div class="container-custom flex justify-between items-center h-20 bg-white">
-      <a href="/" class="text-4xl font-heading font-bold text-logo">
+      <a href="/" class="text-4xl font-primary font-bold text-logo hover:opacity-80 transition-opacity">
         NidarBid
       </a>
 

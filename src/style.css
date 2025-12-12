@@ -4,14 +4,15 @@
 
 @theme {
   --font-sans: "Inter", sans-serif;
-  --font-heading: "Space Grotesk", sans-serif;
+  --font-primary: "Space Grotesk", sans-serif;
   --breakpoint-2xl: 1358px;
 
   /*Custom colors*/
-  --color-heading-color: #1f242b;
+  --color-primary: #1f242b;
   --color-body-bg: #f1f5f8;
   --color-logo: #1a1f7c;
-  --color-primary: #4e71fa;
+  --color-secondary: #4e71fa;
+  --color-hover: #3d5ee0;
 }
 
 @layer base {
