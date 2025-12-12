@@ -39,11 +39,16 @@ async function loadProfile() {
     // Show private info if own profile
     if (isOwnProfile) {
       const creditEl = document.querySelector("#profile-credits");
-      const editBtn = document.querySelector("#edit-profile-btn");
+      const editLink = document.querySelector("#edit-profile-link");
 
-      creditEl.textContent = `Total Credits: ${profile.credits}`;
-      creditEl.classList.remove("hidden");
-      editBtn.classList.remove("hidden");
+      if (creditEl) {
+        creditEl.textContent = `Total Credits: ${profile.credits}`;
+        creditEl.classList.remove("hidden");
+      }
+
+      if (editLink) {
+        editLink.classList.remove("hidden");
+      }
     }
 
     // Render Listings
