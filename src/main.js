@@ -5,23 +5,39 @@ function initApp() {
   const header = document.querySelector("#header");
 
   if (header) {
+    // 1. Render Navbar
     header.innerHTML = Navbar();
 
-    const logoutBtn = document.querySelector("#logout-btn");
+    // 2. Setup Dropdown Logic (Student Style)
+    const menuBtn = document.querySelector("#user-menu-btn");
+    const dropdown = document.querySelector("#user-dropdown");
 
+    if (menuBtn && dropdown) {
+      // Toggle menu on click
+      menuBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Don't close immediately
+        dropdown.classList.toggle("hidden");
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add("hidden");
+        }
+      });
+    }
+
+    // 3. Setup Logout Logic
+    const logoutBtn = document.querySelector("#logout-btn");
     if (logoutBtn) {
       logoutBtn.addEventListener("click", () => {
-        // Clear user data
         localStorage.removeItem("token");
         localStorage.removeItem("user_name");
         localStorage.removeItem("user_credits");
-
-        // Redirect to login page
         window.location.href = "/login.html";
       });
     }
   }
 }
 
-// Wait for the DOM to be fully loaded before running
 document.addEventListener("DOMContentLoaded", initApp);

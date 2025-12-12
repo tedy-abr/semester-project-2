@@ -34,10 +34,13 @@ export async function login({ email, password }) {
 
     // Save everything to storage
     const credits = profileJson.data.credits;
+    const avatarUrl =
+      profileJson.data.avatar?.url || "https://via.placeholder.com/150";
 
     localStorage.setItem("token", accessToken);
     localStorage.setItem("user_name", name);
     localStorage.setItem("user_credits", credits);
+    localStorage.setItem("user_avatar", avatarUrl);
 
     return profileJson.data;
   } catch (error) {
