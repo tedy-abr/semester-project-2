@@ -6,6 +6,20 @@ function initApp() {
 
   if (header) {
     header.innerHTML = Navbar();
+
+    const logoutBtn = document.querySelector("#logout-btn");
+
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        // Clear user data
+        localStorage.removeItem("token");
+        localStorage.removeItem("user_name");
+        localStorage.removeItem("user_credits");
+
+        // Redirect to login page
+        window.location.href = "/login.html";
+      });
+    }
   }
 }
 
