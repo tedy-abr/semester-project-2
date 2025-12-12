@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listing Details | NidarBid</title>
+    <link href="./src/style.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-slate-50 flex flex-col min-h-screen">
+    <header id="header"></header>
+
+    <main class="flex-grow container-custom py-12">
+      <a
+        href="/"
+        class="inline-flex items-center text-slate-500 hover:text-primary mb-6 transition-colors"
+      >
+        ← Back to Listings
+      </a>
+
+      <div id="loader" class="text-center py-20">
+        <div
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"
+        ></div>
+      </div>
+
+      <div
+        id="listing-container"
+        class="hidden grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
+      >
+        <div class="flex flex-col gap-4">
+          <div
+            class="w-full h-96 bg-gray-50 rounded-xl overflow-hidden relative"
+          >
+            <img
+              id="listing-image"
+              class="w-full h-full object-contain mix-blend-multiply p-4"
+              alt="Listing Image"
+            />
+          </div>
+        </div>
+
+        <div class="flex flex-col">
+          <h1
+            id="listing-title"
+            class="text-3xl font-bold text-heading-color mb-2"
+          ></h1>
+
+          <div class="flex items-center gap-2 text-sm text-slate-500 mb-6">
+            <span
+              >Sold by
+              <span id="listing-seller" class="font-medium text-primary"></span
+            ></span>
+            <span>•</span>
+            <span id="listing-created"></span>
+          </div>
+
+          <p
+            id="listing-description"
+            class="text-slate-600 mb-8 leading-relaxed"
+          ></p>
+
+          <div
+            class="bg-slate-50 rounded-xl p-6 border border-slate-100 mt-auto"
+          >
+            <div class="flex justify-between items-end mb-4">
+              <span class="text-slate-500 font-medium"
+                >Current Highest Bid</span
+              >
+              <span
+                id="listing-price"
+                class="text-2xl font-bold text-heading-color"
+                >0 Credits</span
+              >
+            </div>
+
+            <form id="bid-form" class="flex gap-3">
+              <input
+                type="number"
+                name="amount"
+                id="bid-amount"
+                placeholder="Enter amount..."
+                class="flex-grow px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                required
+              />
+              <button
+                type="submit"
+                class="bg-primary hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-sm"
+              >
+                Place Bid
+              </button>
+            </form>
+            <p id="auth-message" class="text-xs text-red-500 mt-2 hidden">
+              You must be logged in to bid.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer"></footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/views/details.js"></script>
+  </body>
+</html>

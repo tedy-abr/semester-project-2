@@ -25,3 +25,20 @@ export async function readListings(limit = 12, page = 1) {
     return [];
   }
 }
+
+export async function readSingleListing(id) {
+  if (!id) throw new Error("Listing ID is missing");
+
+  // Seller and Bids data
+  const response = await fetch(
+    `${API_AUCTION_LISTINGS}/${id}?_seller=true&_bids=true`
+  );
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.errors?.[0]?.message || "Could not fetch listing");
+  }
+
+  return json.data;
+}

@@ -62,7 +62,7 @@ export function ListingCard(listing) {
   }
 
   const btn = clone.querySelector(".js-view-btn");
-  btn.href = `/listings/details.html?id=${id}`;
+  btn.href = `/details.html?id=${id}`;
 
   return clone;
 }
