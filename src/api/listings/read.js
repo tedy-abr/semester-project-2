@@ -1,9 +1,14 @@
 import { API_AUCTION_LISTINGS, API_KEY } from "../constants.js";
 
-export async function readListings(limit = 12, page = 1) {
+export async function readListings(
+  limit = 12,
+  page = 1,
+  sort = "created",
+  sortOrder = "desc"
+) {
   try {
     const response = await fetch(
-      `${API_AUCTION_LISTINGS}?limit=${limit}&page=${page}&_active=true&_seller=true&_bids=true&sort=created&sortOrder=desc`,
+      `${API_AUCTION_LISTINGS}?limit=${limit}&page=${page}&_active=true&_seller=true&_bids=true&sort=${sort}&sortOrder=${sortOrder}`,
       {
         method: "GET",
         headers: {
@@ -25,7 +30,6 @@ export async function readListings(limit = 12, page = 1) {
     };
   } catch (error) {
     console.error(error);
-
     return { data: [], meta: {} };
   }
 }

@@ -1,11 +1,12 @@
 import { ListingCard } from "../components/ListingCard.js";
 import { readListings } from "../api/listings/read.js";
 import { placeBid } from "../api/listings/bid.js";
-// 🟢 1. Import Search API
 import { searchListings } from "../api/listings/search.js";
 
 let currentPage = 1;
 let currentSearchQuery = "";
+let currentSort = "created";
+let currentSortOrder = "desc";
 
 async function loadHomePage() {
   const grid = document.querySelector("#listings-grid");
@@ -13,7 +14,7 @@ async function loadHomePage() {
   const token = localStorage.getItem("token");
   const isLoggedIn = !!token;
 
-  // Inject Create Listing Button if Logged In
+  // Inject Create Listing Button
   if (isLoggedIn && heroSection && !document.querySelector(".js-create-btn")) {
     const template = document.querySelector("#create-listing-btn-template");
     if (template) {
@@ -23,26 +24,35 @@ async function loadHomePage() {
     }
   }
 
-  // Search listener
+  // Search Listener
   const searchForm = document.querySelector("#search-form");
   if (searchForm && !searchForm.dataset.listenerAttached) {
     searchForm.addEventListener("submit", onSearchSubmit);
     searchForm.dataset.listenerAttached = "true";
   }
 
+  // Sort Listener
+  const sortSelect = document.querySelector("#sort");
+  if (sortSelect && !sortSelect.dataset.listenerAttached) {
+    sortSelect.addEventListener("change", onSortChange);
+    sortSelect.dataset.listenerAttached = "true";
+  }
+
   if (!grid) return;
 
-  // Clear Grid and Show Loading State
-  grid.innerHTML = `<div class="col-span-full text-center text-slate-400 py-10">Loading ${
-    currentSearchQuery ? "results" : "page " + currentPage
-  }...</div>`;
+  grid.innerHTML = `<div class="col-span-full text-center text-slate-400 py-10">Loading...</div>`;
 
   try {
     let result;
     if (currentSearchQuery) {
       result = await searchListings(currentSearchQuery, 12, currentPage);
     } else {
-      result = await readListings(12, currentPage);
+      result = await readListings(
+        12,
+        currentPage,
+        currentSort,
+        currentSortOrder
+      );
     }
 
     const { data: listings, meta } = result;
@@ -54,13 +64,11 @@ async function loadHomePage() {
         const cardElement = ListingCard(listing);
 
         if (isLoggedIn) {
-          // Remove Auth Message
           const authMessage = cardElement.querySelector(
             ".text-xs.text-heading-color.mb-3"
           );
           if (authMessage) authMessage.remove();
 
-          // Inject quick bid form
           const bidTemplate = document.querySelector("#quick-bid-template");
           if (bidTemplate) {
             const clone = bidTemplate.content.cloneNode(true);
@@ -93,7 +101,6 @@ async function loadHomePage() {
         grid.append(cardElement);
       });
 
-      // Pagination Controls
       renderPaginationControls(grid, meta);
     } else {
       grid.innerHTML = `<div class="col-span-full text-center text-slate-500">No listings found.</div>`;
@@ -104,18 +111,28 @@ async function loadHomePage() {
   }
 }
 
-// Handle search submit
 function onSearchSubmit(event) {
   event.preventDefault();
   const formData = new FormData(event.target);
   const query = formData.get("search").trim();
-
   currentSearchQuery = query;
   currentPage = 1;
   loadHomePage();
 }
 
-// Pagination helper
+// Handle Sort Change
+function onSortChange(event) {
+  const value = event.target.value;
+
+  // Split the value
+  const [sort, order] = value.split("_");
+
+  currentSort = sort;
+  currentSortOrder = order;
+  currentPage = 1;
+  loadHomePage();
+}
+
 function renderPaginationControls(grid, meta) {
   if (meta.pageCount <= 1) return;
 
@@ -129,7 +146,6 @@ function renderPaginationControls(grid, meta) {
 
   indicator.textContent = `Page ${meta.currentPage} of ${meta.pageCount}`;
 
-  // Handle Previous Button
   prevBtn.disabled = meta.isFirstPage;
   prevBtn.addEventListener("click", () => {
     if (!meta.isFirstPage) {
@@ -141,7 +157,6 @@ function renderPaginationControls(grid, meta) {
     }
   });
 
-  // Handle Next Button
   nextBtn.disabled = meta.isLastPage;
   nextBtn.addEventListener("click", () => {
     if (!meta.isLastPage) {
