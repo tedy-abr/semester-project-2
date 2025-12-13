@@ -51,10 +51,16 @@ export function ListingCard(listing) {
 
   // Bidder Name
   if (lastBid?.bidder?.name) {
-    const bidderEl = clone.querySelector(".js-bidder-name");
-    bidderEl.textContent = lastBid.bidder.name;
-    bidderEl.href = `/profile.html?name=${lastBid.bidder.name}`;
-    bidderEl.classList.remove("hidden");
+    const bidderNameEl = clone.querySelector(".js-bidder-name");
+    const bidderContainer = clone.querySelector(".js-bidder-container");
+
+    bidderNameEl.textContent = lastBid.bidder.name;
+    bidderNameEl.href = `/profile.html?name=${lastBid.bidder.name}`;
+
+    // Show Icon & Bidder
+    if (bidderContainer) {
+      bidderContainer.classList.remove("hidden");
+    }
   }
 
   const btn = clone.querySelector(".js-view-btn");

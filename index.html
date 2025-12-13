@@ -75,61 +75,75 @@
         </div>
 
         <template id="listing-template">
-          <div class="flex flex-col h-full group">
-            <div class="w-full h-52 relative mb-2">
+          <div
+            class="flex flex-col h-full group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div class="relative h-56 sm:h-64 bg-gray-100 overflow-hidden">
               <img
-                class="w-full h-full object-cover rounded-xl js-img"
+                class="w-full h-full object-cover transition-transform duration-500 js-img hover:scale-105"
                 loading="lazy"
               />
               <div
-                class="absolute bottom-2 right-2 bg-orange-100 backdrop-blur-sm text-xs font-bold px-2 py-1 rounded border border-slate-200 text-orange-900 shadow-sm js-ends-at"
+                class="absolute bottom-1 right-1 bg-orange-100 backdrop-blur-sm text-sm font-medium font-primary px-3 py-2 rounded-lg border border-slate-200 text-orange-900 shadow-md js-ends-at"
               ></div>
             </div>
-            <div
-              class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 p-4 flex flex-col border border-slate-100 flex-1"
-            >
+
+            <!-- Listing Content -->
+            <div class="p-4 flex flex-col flex-1">
               <h3
-                class="text-lg font-medium text-heading-color mb-2 truncate js-title"
+                class="text-lg font-medium text-primary mb-2 font-primary js-title"
               ></h3>
 
-              <div
-                class="flex justify-between items-center text-sm text-primary mb-6"
-              >
-                <div>
-                  By
-                  <a class="hover:underline font-medium js-seller"></a>
+              <div class="flex justify-between items-center text-sm mb-6">
+                <div class="flex gap-2">
+                  <span class="text-primary text-base">By</span>
+                  <a
+                    class="text-secondary text-base font-medium hover:underline js-seller"
+                  ></a>
                 </div>
-                <span class="js-created text-gray-500 font-light"></span>
+
+                <span
+                  class="js-created text-gray-500 text-sm font-light"
+                ></span>
               </div>
 
               <div class="mt-auto mb-4">
                 <div class="flex justify-between items-center font-heading">
-                  <span class="text-sm text-heading-color font-bold"
+                  <span class="text-base text-gray-600 font-primary"
                     >Current bid</span
                   >
                   <span
-                    class="text-sm font-bold text-heading-color js-bid-amount"
+                    class="text-lg font-primary font-semibold text-primary js-bid-amount"
                   ></span>
                 </div>
-                <a
-                  class="text-sm text-primary font-bold font-heading hover:underline mt-1 js-bidder-name"
-                ></a>
+                <div
+                  class="hidden flex items-center gap-1.5 mt-1 js-bidder-container text-secondary"
+                >
+                  <span class="material-symbols-outlined text-sm">person</span>
+                  <a
+                    class="text-sm font-primary font-bold hover:underline js-bidder-name"
+                  ></a>
+                </div>
               </div>
 
-              <p class="text-xs text-heading-color mb-3">
+              <p class="text-sm text-center text-gray-600 leading-relaxed mb-4">
                 Please
-                <a href="/register.html" class="text-primary hover:underline"
+                <a
+                  href="/register.html"
+                  class="font-medium text-secondary hover:underline"
                   >register</a
                 >
                 or
-                <a href="/login.html" class="text-primary hover:underline"
+                <a
+                  href="/login.html"
+                  class="font-medium text-secondary hover:underline"
                   >login</a
                 >
                 to place bids
               </p>
 
               <a
-                class="block w-full bg-primary hover:bg-blue-600 text-white text-center font-medium py-2.5 rounded-lg transition-colors shadow-sm js-view-btn"
+                class="block text-center w-full bg-secondary text-white py-3 rounded-lg text-base font-primary font-semibold hover:bg-hover transition-all transform hover:scale-105 active:scale-95 js-view-btn"
               >
                 View Details
               </a>
