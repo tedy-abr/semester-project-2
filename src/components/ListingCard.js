@@ -1,7 +1,3 @@
-/**
- * Creates a DOM Element by cloning the <template> in index.html.
- * This keeps HTML/CSS in the HTML file, and Logic in the JS file.
- */
 export function ListingCard(listing) {
   const { id, title, media, _count, endsAt, seller, created, bids } = listing;
 
