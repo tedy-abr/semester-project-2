@@ -1,13 +1,13 @@
 import { API_AUCTION_LISTINGS } from "../constants.js";
 
-export async function bidOnListing(id, amount) {
+export async function placeBid(listingId, amount) {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    throw new Error("You must be logged in to place a bid.");
+    throw new Error("You must be logged in to bid.");
   }
 
-  const response = await fetch(`${API_AUCTION_LISTINGS}/${id}/bids`, {
+  const response = await fetch(`${API_AUCTION_LISTINGS}/${listingId}/bids`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
