@@ -1,8 +1,11 @@
 import { ListingCard } from "../components/ListingCard.js";
 import { readListings } from "../api/listings/read.js";
 import { placeBid } from "../api/listings/bid.js";
+// 🟢 1. Import Search API
+import { searchListings } from "../api/listings/search.js";
 
 let currentPage = 1;
+let currentSearchQuery = "";
 
 async function loadHomePage() {
   const grid = document.querySelector("#listings-grid");
@@ -15,19 +18,34 @@ async function loadHomePage() {
     const template = document.querySelector("#create-listing-btn-template");
     if (template) {
       const clone = template.content.cloneNode(true);
-      // Add a class marker so we don't add it twice if function re-runs
       clone.firstElementChild.classList.add("js-create-btn");
       heroSection.appendChild(clone);
     }
   }
 
+  // Search listener
+  const searchForm = document.querySelector("#search-form");
+  if (searchForm && !searchForm.dataset.listenerAttached) {
+    searchForm.addEventListener("submit", onSearchSubmit);
+    searchForm.dataset.listenerAttached = "true";
+  }
+
   if (!grid) return;
 
   // Clear Grid and Show Loading State
-  grid.innerHTML = `<div class="col-span-full text-center text-slate-400 py-10">Loading page ${currentPage}...</div>`;
+  grid.innerHTML = `<div class="col-span-full text-center text-slate-400 py-10">Loading ${
+    currentSearchQuery ? "results" : "page " + currentPage
+  }...</div>`;
 
   try {
-    const { data: listings, meta } = await readListings(12, currentPage);
+    let result;
+    if (currentSearchQuery) {
+      result = await searchListings(currentSearchQuery, 12, currentPage);
+    } else {
+      result = await readListings(12, currentPage);
+    }
+
+    const { data: listings, meta } = result;
 
     grid.innerHTML = "";
 
@@ -84,6 +102,17 @@ async function loadHomePage() {
     console.error(error);
     grid.innerHTML = `<div class="col-span-full text-center text-red-500">Error loading auctions.</div>`;
   }
+}
+
+// Handle search submit
+function onSearchSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const query = formData.get("search").trim();
+
+  currentSearchQuery = query;
+  currentPage = 1;
+  loadHomePage();
 }
 
 // Pagination helper

@@ -6,3 +6,4 @@ export const API_AUCTION_LISTINGS = `${API_AUCTION}/listings`;
 export const API_AUTH_REGISTER = `${API_AUTH}/register`;
 export const API_AUTH_LOGIN = `${API_AUTH}/login`;
 export const API_AUCTION_PROFILES = `${API_AUCTION}/profiles`;
+export const API_AUCTION_SEARCH = `${API_AUCTION_LISTINGS}/search`;
