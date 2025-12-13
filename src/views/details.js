@@ -76,35 +76,52 @@ async function loadDetails() {
     const title = document.querySelector("#listing-title");
     const description = document.querySelector("#listing-description");
     const seller = document.querySelector("#listing-seller");
-    const created = document.querySelector("#listing-created");
+    const bidsCount = document.querySelector("#listing-bids-count");
     const price = document.querySelector("#listing-price");
+    const endsAt = document.querySelector("#listing-ends");
 
+    // Populate Data
     if (image) {
       image.src =
         listing.media?.[0]?.url ||
         "https://via.placeholder.com/400x300?text=No+Image";
       image.alt = listing.media?.[0]?.alt || listing.title;
     }
-    if (title) title.textContent = listing.title;
-    if (description)
+
+    if (title) {
+      title.textContent = listing.title;
+      title.classList.remove("hidden");
+    }
+
+    if (description) {
       description.textContent =
         listing.description || "No description provided.";
-    if (seller) seller.textContent = listing.seller?.name || "Unknown Seller";
+    }
 
-    const date = new Date(listing.created).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-    if (created) created.textContent = `Posted ${date}`;
+    if (seller) seller.textContent = listing.seller?.name || "Unknown";
+
+    if (bidsCount) {
+      bidsCount.textContent = listing._count?.bids || listing.bids?.length || 0;
+    }
 
     const currentBid =
       listing.bids?.length > 0
         ? listing.bids[listing.bids.length - 1].amount
         : 0;
-    if (price) price.textContent = `${currentBid} Credits`;
+    if (price) price.textContent = currentBid;
+    renderBidHistory(listing.bids);
 
-    // Toggle Visibility
+    if (endsAt) {
+      const date = new Date(listing.endsAt).toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+      endsAt.textContent = date;
+    }
+
     const loader = document.querySelector("#loader");
     const container = document.querySelector("#listing-container");
 
@@ -114,6 +131,44 @@ async function loadDetails() {
     console.error(error);
     alert("Error loading listing details.");
   }
+}
+
+function renderBidHistory(bids) {
+  const container = document.querySelector("#bids-container");
+  const template = document.querySelector("#bid-row-template");
+
+  if (!container || !template) return;
+
+  container.innerHTML = "";
+
+  if (!bids || bids.length === 0) {
+    container.innerHTML = `<div class="text-center text-slate-500 italic">No bids yet. Be the first!</div>`;
+    return;
+  }
+
+  // Sort bids
+  const sortedBids = bids.sort((a, b) => b.amount - a.amount);
+
+  sortedBids.forEach((bid) => {
+    const clone = template.content.cloneNode(true);
+    const bidderEl = clone.querySelector(".js-bidder");
+    const dateEl = clone.querySelector(".js-date");
+    const amountEl = clone.querySelector(".js-amount");
+    const name = bid.bidderName || bid.bidder?.name || "Unknown Bidder";
+    const date = new Date(bid.created).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    if (bidderEl) bidderEl.textContent = name;
+    if (dateEl) dateEl.textContent = date;
+    if (amountEl) amountEl.textContent = `${bid.amount} credits`;
+
+    container.appendChild(clone);
+  });
 }
 
 loadDetails();

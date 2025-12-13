@@ -7,93 +7,140 @@
     <link href="./src/style.css" rel="stylesheet" />
   </head>
 
-  <body class="bg-slate-50 flex flex-col min-h-screen">
+  <body>
     <header id="header"></header>
 
-    <main class="flex-grow container-custom py-12">
-      <a
-        href="/"
-        class="inline-flex items-center text-slate-500 hover:text-primary mb-6 transition-colors"
-      >
-        ← Back to Listings
-      </a>
+    <main>
+      <div class="container-custom py-12">
+        <a
+          href="/"
+          class="inline-flex items-center text-slate-500 hover:text-primary mb-8 transition-colors font-medium"
+        >
+          ← Back to Listings
+        </a>
 
-      <div id="loader" class="text-center py-20">
-        <div
-          class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"
-        ></div>
-      </div>
-
-      <div
-        id="listing-container"
-        class="hidden grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-8 rounded-2xl shadow-sm border border-slate-100"
-      >
-        <div class="flex flex-col gap-4">
+        <div id="loader" class="text-center py-20">
           <div
-            class="w-full h-96 bg-gray-50 rounded-xl overflow-hidden relative"
-          >
-            <img
-              id="listing-image"
-              class="w-full h-full object-contain mix-blend-multiply p-4"
-              alt="Listing Image"
-            />
-          </div>
+            class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"
+          ></div>
         </div>
 
-        <div class="flex flex-col">
+        <div id="listing-container" class="hidden">
           <h1
             id="listing-title"
-            class="text-3xl font-bold text-heading-color mb-2"
+            class="text-4xl text-primary font-primary font-semibold text-center mb-10 leading-tight"
           ></h1>
-
-          <div class="flex items-center gap-2 text-sm text-slate-500 mb-6">
-            <span
-              >Sold by
-              <span id="listing-seller" class="font-medium text-primary"></span
-            ></span>
-            <span>•</span>
-            <span id="listing-created"></span>
-          </div>
 
           <p
             id="listing-description"
-            class="text-slate-600 mb-8 leading-relaxed"
+            class="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-10 leading-relaxed"
           ></p>
 
           <div
-            class="bg-slate-50 rounded-xl p-6 border border-slate-100 mt-auto"
+            class="bg-white rounded-2xl shadow-lg overflow-hidden mb-10 sm:mb-14 border border-slate-100"
           >
-            <div class="flex justify-between items-end mb-4">
-              <span class="text-slate-500 font-medium"
-                >Current Highest Bid</span
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+              <div
+                class="relative w-full h-[500px] bg-gray-100 flex items-center justify-center overflow-hidden"
               >
-              <span
-                id="listing-price"
-                class="text-2xl font-bold text-heading-color"
-                >0 Credits</span
-              >
-            </div>
+                <img
+                  id="listing-image"
+                  src=""
+                  alt="Listing Image"
+                  class="max-w-full max-h-full object-contain mix-blend-multiply"
+                />
+              </div>
 
-            <form id="bid-form" class="flex gap-3">
-              <input
-                type="number"
-                name="amount"
-                id="bid-amount"
-                placeholder="Enter amount..."
-                class="flex-grow px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                required
-              />
-              <button
-                type="submit"
-                class="bg-primary hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-sm"
+              <div
+                class="p-8 sm:p-10 lg:p-14 border-t lg:border-t-0 lg:border-l border-gray-200"
               >
-                Place Bid
-              </button>
-            </form>
-            <p id="auth-message" class="text-xs text-red-500 mt-2 hidden">
-              You must be logged in to bid.
-            </p>
+                <div
+                  class="flex flex-col h-full justify-center space-y-8 lg:space-y-12"
+                >
+                  <div
+                    class="flex items-center justify-between py-5 border-b border-gray-200"
+                  >
+                    <span class="text-2xl text-gray-700 font-semibold"
+                      >Seller</span
+                    >
+                    <span
+                      id="listing-seller"
+                      class="text-xl text-gray-600"
+                    ></span>
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between py-5 border-b border-gray-200"
+                  >
+                    <span class="text-2xl text-gray-700 font-semibold"
+                      >Total bids</span
+                    >
+                    <span id="listing-bids-count" class="text-2xl text-gray-600"
+                      >0</span
+                    >
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between py-5 border-b border-gray-200"
+                  >
+                    <span class="text-2xl text-gray-700 font-semibold"
+                      >Highest bid</span
+                    >
+                    <span id="listing-price" class="text-2xl text-gray-600"
+                      >0</span
+                    >
+                  </div>
+
+                  <div class="flex items-center justify-between py-5">
+                    <span class="text-2xl text-gray-700 font-sans font-semibold"
+                      >Ends at</span
+                    >
+                    <span
+                      id="listing-ends"
+                      class="text-2xl text-gray-600 text-right"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-lg p-8 sm:p-10 lg:p-14 mb-10 border border-slate-100"
+          >
+            <h2
+              class="text-4xl text-primary font-primary font-semibold text-center mb-8"
+            >
+              Bid History
+            </h2>
+
+            <div
+              id="bids-container"
+              class="bg-gray-50 rounded-2xl p-6 sm:p-8 lg:p-12 space-y-6"
+            >
+              <div class="text-center text-slate-500 italic">
+                No bids yet. Be the first!
+              </div>
+            </div>
+          </div>
+          <template id="bid-row-template">
+            <div
+              class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-white rounded-xl shadow-sm border border-slate-100 transition-transform hover:scale-[1.02]"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
+              >
+                <span
+                  class="js-bidder text-2xl text-gray-800 font-semibold"
+                ></span>
+                <span class="js-date text-lg text-gray-600"></span>
+              </div>
+
+              <span class="js-amount text-xl text-primary font-medium"></span>
+            </div>
+          </template>
+
+          <div id="bid-section" class="mt-8 hidden"></div>
         </div>
       </div>
     </main>
