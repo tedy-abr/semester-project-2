@@ -175,6 +175,29 @@
             </button>
           </div>
         </template>
+
+        <!-- Pagination -->
+        <template id="pagination-template">
+          <div
+            class="col-span-full flex justify-center items-center gap-4 mt-8 pb-8"
+          >
+            <button
+              class="js-prev-btn px-6 py-2 rounded-full font-medium transition-colors bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            >
+              Previous
+            </button>
+
+            <span class="js-page-indicator text-slate-600 font-medium">
+              Page 1 of 1
+            </span>
+
+            <button
+              class="js-next-btn px-6 py-2 rounded-full font-medium transition-colors bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-400"
+            >
+              Next
+            </button>
+          </div>
+        </template>
       </div>
     </main>
 
