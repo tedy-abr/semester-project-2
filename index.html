@@ -21,11 +21,17 @@
           </p>
 
           <form id="search-form" class="relative max-w-lg mx-auto">
+            <span
+              class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-secondary"
+            >
+              search
+            </span>
+
             <input
               type="search"
               name="search"
               placeholder="Search auctions, categories or keywords..."
-              class="w-full bg-white py-3.5 px-6 rounded-lg border border-slate-100 shadow-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              class="w-full bg-white py-3.5 pl-12 pr-6 text-base rounded-xl border border-gray-200 text-slate-600 focus:border-secondary focus:ring-2 focus:ring-secondary focus:ring-opacity-20 outline-none transition-all shadow-sm hover:shadow-md placeholder:text-gray-400"
             />
           </form>
         </section>
@@ -33,33 +39,29 @@
         <section
           class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4"
         >
-          <h2 class="text-3xl font-medium text-heading-color">Live listings</h2>
+          <h2 class="text-2xl font-bold text-primary">Live listings</h2>
 
-          <div class="flex items-center gap-3">
-            <label for="sort" class="text-heading-color text-2xl">Sort</label>
-            <div class="relative">
-              <select
-                id="sort"
-                class="appearance-none bg-white border border-slate-100 text-slate-600 py-2 pl-4 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer shadow-sm"
-              >
-                <option value="created_desc">Newest First</option>
-                <option value="created_asc">Oldest First</option>
-                <option value="endsAt_asc">Ending Soon</option>
-              </select>
-              <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500"
-              >
-                <svg
-                  class="h-4 w-4 fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                >
-                  <path
-                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                  />
-                </svg>
-              </div>
-            </div>
+          <div class="relative">
+            <span
+              class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 font-medium pointer-events-none"
+            >
+              Sort:
+            </span>
+
+            <select
+              id="sort"
+              class="appearance-none w-full bg-white border border-gray-200 rounded-xl text-slate-700 py-2.5 pl-14 pr-10 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary cursor-pointer shadow-sm hover:shadow-md font-medium hover:border-secondary transition-colors font-primary text-base"
+            >
+              <option value="created_desc">Newest First</option>
+              <option value="created_asc">Oldest First</option>
+              <option value="endsAt_asc">Ending Soon</option>
+            </select>
+
+            <span
+              class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-500 pointer-events-none"
+            >
+              expand_more
+            </span>
           </div>
         </section>
 
@@ -138,9 +140,9 @@
           <div class="mt-8">
             <a
               href="/create-listing.html"
-              class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-lg font-bold px-8 py-3 rounded-full shadow-md transition-transform hover:scale-105"
+              class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-base font-semibold font-primary px-8 py-3.5 rounded-xl shadow-md transition-all transform hover:scale-105 hover:shadow-lg"
             >
-              <span class="material-symbols-outlined font-bold">add</span>
+              <span class="material-symbols-outlined font-semibold">add</span>
               Create Listing
             </a>
           </div>
