@@ -139,6 +139,36 @@
               <span class="js-amount text-xl text-primary font-medium"></span>
             </div>
           </template>
+          <template id="bid-form-template">
+            <div class="max-w-lg mx-auto space-y-5 mt-10">
+              <div
+                class="bg-gray-50 rounded-xl px-5 py-4 flex items-center justify-between border border-gray-200 focus-within:ring-2 focus-within:ring-secondary focus-within:border-secondary transition-all"
+              >
+                <input
+                  type="number"
+                  id="bid-amount-input"
+                  placeholder="Enter amount"
+                  class="bg-transparent outline-none flex-1 text-lg text-gray-700 font-sans placeholder:text-gray-400"
+                  required
+                />
+                <span class="text-lg text-primary font-medium ml-3"
+                  >credits</span
+                >
+              </div>
+
+              <button
+                id="place-bid-btn"
+                class="w-full bg-secondary text-white py-4 rounded-xl text-lg font-primary font-semibold hover:bg-hover transition-all transform hover:scale-[1.02] active:scale-95 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Place Bid
+              </button>
+
+              <p
+                id="bid-message"
+                class="text-center text-red-500 text-sm font-medium mt-2 hidden"
+              ></p>
+            </div>
+          </template>
 
           <div id="bid-section" class="mt-8 hidden"></div>
         </div>

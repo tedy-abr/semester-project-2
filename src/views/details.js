@@ -1,59 +1,96 @@
 import { readSingleListing } from "../api/listings/read.js";
 import { placeBid } from "../api/listings/bid.js";
-import { API_AUCTION_PROFILES } from "../api/constants.js";
 
-async function handleBid(event) {
-  event.preventDefault();
+function renderBidHistory(bids) {
+  const container = document.querySelector("#bids-container");
+  const template = document.querySelector("#bid-row-template");
 
-  const form = event.target;
-  const input = form.querySelector("#bid-amount");
-  const amount = input.value;
+  if (!container || !template) return;
 
-  const parameterString = window.location.search;
-  const searchParams = new URLSearchParams(parameterString);
-  const id = searchParams.get("id");
+  container.innerHTML = "";
 
-  try {
-    await placeBid(id, amount);
-
-    // Refresh user credits
-    const username = localStorage.getItem("user_name");
-    const token = localStorage.getItem("token");
-
-    if (username) {
-      const response = await fetch(`${API_AUCTION_PROFILES}/${username}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
-        },
-      });
-
-      const json = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("user_credits", json.data.credits);
-      }
-    }
-
-    alert("Bid placed successfully!");
-    window.location.reload();
-  } catch (error) {
-    alert(error.message);
+  if (!bids || bids.length === 0) {
+    container.innerHTML = `<div class="text-center text-slate-500 italic">No bids yet. Be the first!</div>`;
+    return;
   }
+
+  // Sort bids highest amount first
+  const sortedBids = bids.sort((a, b) => b.amount - a.amount);
+
+  sortedBids.forEach((bid) => {
+    const clone = template.content.cloneNode(true);
+
+    const bidderEl = clone.querySelector(".js-bidder");
+    const dateEl = clone.querySelector(".js-date");
+    const amountEl = clone.querySelector(".js-amount");
+
+    const name = bid.bidderName || bid.bidder?.name || "Unknown Bidder";
+    const date = new Date(bid.created).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    if (bidderEl) bidderEl.textContent = name;
+    if (dateEl) dateEl.textContent = date;
+    if (amountEl) amountEl.textContent = `${bid.amount} credits`;
+
+    container.appendChild(clone);
+  });
 }
 
-// Auth Check
-const token = localStorage.getItem("token");
-const bidForm = document.querySelector("#bid-form");
-const authMessage = document.querySelector("#auth-message");
+function renderBidForm(listingId) {
+  const token = localStorage.getItem("token");
+  const section = document.querySelector("#bid-section");
+  const template = document.querySelector("#bid-form-template");
 
-if (token) {
-  if (bidForm) {
-    bidForm.addEventListener("submit", handleBid);
-  }
-} else {
-  if (bidForm) bidForm.classList.add("hidden");
-  if (authMessage) authMessage.classList.remove("hidden");
+  // If not logged in or missing elements, stop here
+  if (!token || !section || !template) return;
+
+  // Clear and Show Section
+  section.innerHTML = "";
+  section.classList.remove("hidden");
+
+  // Clone Template
+  const clone = template.content.cloneNode(true);
+  const input = clone.querySelector("#bid-amount-input");
+  const btn = clone.querySelector("#place-bid-btn");
+  const msg = clone.querySelector("#bid-message");
+
+  // Add Click Listener
+  btn.addEventListener("click", async () => {
+    const amount = Number(input.value);
+
+    if (!amount) {
+      alert("Please enter a valid amount.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Placing Bid...";
+    msg.classList.add("hidden");
+
+    try {
+      await placeBid(listingId, amount);
+
+      // Update Credits in LocalStorage
+      const currentCredits = Number(localStorage.getItem("user_credits") || 0);
+      localStorage.setItem("user_credits", currentCredits - amount);
+
+      alert("Bid placed successfully!");
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      msg.textContent = error.message || "Failed to place bid.";
+      msg.classList.remove("hidden");
+      btn.disabled = false;
+      btn.textContent = "Place Bid";
+    }
+  });
+
+  section.appendChild(clone);
 }
 
 async function loadDetails() {
@@ -80,7 +117,6 @@ async function loadDetails() {
     const price = document.querySelector("#listing-price");
     const endsAt = document.querySelector("#listing-ends");
 
-    // Populate Data
     if (image) {
       image.src =
         listing.media?.[0]?.url ||
@@ -109,7 +145,6 @@ async function loadDetails() {
         ? listing.bids[listing.bids.length - 1].amount
         : 0;
     if (price) price.textContent = currentBid;
-    renderBidHistory(listing.bids);
 
     if (endsAt) {
       const date = new Date(listing.endsAt).toLocaleString("en-US", {
@@ -122,6 +157,10 @@ async function loadDetails() {
       endsAt.textContent = date;
     }
 
+    // Render dynamic sections
+    renderBidHistory(listing.bids);
+    renderBidForm(listing.id);
+
     const loader = document.querySelector("#loader");
     const container = document.querySelector("#listing-container");
 
@@ -131,44 +170,6 @@ async function loadDetails() {
     console.error(error);
     alert("Error loading listing details.");
   }
-}
-
-function renderBidHistory(bids) {
-  const container = document.querySelector("#bids-container");
-  const template = document.querySelector("#bid-row-template");
-
-  if (!container || !template) return;
-
-  container.innerHTML = "";
-
-  if (!bids || bids.length === 0) {
-    container.innerHTML = `<div class="text-center text-slate-500 italic">No bids yet. Be the first!</div>`;
-    return;
-  }
-
-  // Sort bids
-  const sortedBids = bids.sort((a, b) => b.amount - a.amount);
-
-  sortedBids.forEach((bid) => {
-    const clone = template.content.cloneNode(true);
-    const bidderEl = clone.querySelector(".js-bidder");
-    const dateEl = clone.querySelector(".js-date");
-    const amountEl = clone.querySelector(".js-amount");
-    const name = bid.bidderName || bid.bidder?.name || "Unknown Bidder";
-    const date = new Date(bid.created).toLocaleString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-
-    if (bidderEl) bidderEl.textContent = name;
-    if (dateEl) dateEl.textContent = date;
-    if (amountEl) amountEl.textContent = `${bid.amount} credits`;
-
-    container.appendChild(clone);
-  });
 }
 
 loadDetails();
