@@ -27,7 +27,7 @@
   }
 
   main {
-    @apply bg-body-bg w-full;
+    @apply bg-body-bg w-full grow flex flex-col;
   }
 
   h1,
