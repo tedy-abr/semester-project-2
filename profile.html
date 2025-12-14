@@ -11,9 +11,11 @@
     <header id="header"></header>
 
     <main>
-      <div class="container-custom py-12">
-        <div class="relative mb-24">
-          <div class="w-full h-80 overflow-hidden rounded-2xl">
+      <div class="container-custom py-8 sm:py-12 px-4">
+        <div class="relative mb-16 sm:mb-24">
+          <div
+            class="w-full h-48 sm:h-80 overflow-hidden rounded-2xl bg-gray-100"
+          >
             <img
               id="profile-banner"
               class="w-full h-full object-cover"
@@ -22,43 +24,54 @@
             />
           </div>
 
-          <div class="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+          <div
+            class="absolute -bottom-12 sm:-bottom-16 left-1/2 transform -translate-x-1/2"
+          >
             <img
               id="profile-avatar"
-              class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-md object-cover bg-white"
+              class="w-24 h-24 sm:w-40 sm:h-40 rounded-full border-4 border-white shadow-md object-cover bg-white"
               src="https://via.placeholder.com/150"
               alt="Avatar"
             />
           </div>
         </div>
 
-        <div class="container-custom text-center mb-12">
-          <h1 id="profile-name" class="text-3xl font-bold text-primary mb-3">
+        <div class="container-custom text-center mb-8 sm:mb-12 px-2">
+          <h1
+            id="profile-name"
+            class="text-2xl sm:text-3xl font-bold text-primary mb-2 sm:mb-3"
+          >
             Loading...
           </h1>
-          <p id="profile-email" class="text-slate-500 mb-4 font-light"></p>
-          <p id="profile-credits" class="text-slate-400 text-sm mb-6 hidden">
+          <p
+            id="profile-email"
+            class="text-sm sm:text-base text-slate-500 mb-3 sm:mb-4 font-light break-all"
+          ></p>
+          <p
+            id="profile-credits"
+            class="text-slate-400 text-xs sm:text-sm mb-4 sm:mb-6 hidden"
+          >
             Credits: 0
           </p>
           <p
             id="profile-bio"
-            class="text-slate-600 italic mb-6 max-w-2xl mx-auto leading-relaxed"
+            class="text-sm sm:text-base text-slate-600 italic mb-6 max-w-2xl mx-auto leading-relaxed px-4"
           ></p>
 
           <a
             id="edit-profile-link"
             href="/edit-profile.html"
-            class="bg-secondary hover:bg-hover text-white px-8 py-3 font-semibold rounded-xl text-base font-primary hidden transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+            class="inline-block bg-secondary hover:bg-hover text-white px-6 sm:px-8 py-2.5 sm:py-3 font-semibold rounded-xl text-sm sm:text-base font-primary hidden transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
           >
             Edit profile
           </a>
         </div>
 
-        <div class="pb-20">
-          <section class="mb-12">
+        <div class="pb-12 sm:pb-20">
+          <section class="mb-8 sm:mb-12">
             <h2
               id="listings-title"
-              class="text-4xl font-bold text-primary mb-6"
+              class="text-2xl sm:text-4xl font-bold text-primary mb-4 sm:mb-6 px-2"
             >
               My listings
             </h2>
@@ -67,8 +80,12 @@
             </div>
           </section>
 
-          <section id="bids-section" class="mb-12 hidden">
-            <h2 class="text-2xl font-bold text-heading-color mb-6">My bids</h2>
+          <section id="bids-section" class="mb-8 sm:mb-12 hidden">
+            <h2
+              class="text-2xl sm:text-4xl font-bold text-heading-color mb-4 sm:mb-6 px-2"
+            >
+              My bids
+            </h2>
             <div id="bids-grid" class="flex flex-col gap-4">
               <p class="text-slate-400 text-center py-4">No bids placed yet.</p>
             </div>
@@ -79,30 +96,46 @@
 
     <template id="profile-listing-template">
       <div
-        class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center gap-6"
+        class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col sm:flex-row items-center gap-4 sm:gap-6 transition-transform hover:scale-[1.01]"
       >
         <div
-          class="w-full sm:w-40 h-40 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden"
+          class="w-full sm:w-40 h-48 sm:h-40 flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden relative"
         >
-          <img class="w-full h-full object-contain mix-blend-multiply js-img" />
+          <img
+            class="w-full h-full object-contain mix-blend-multiply js-img absolute inset-0"
+          />
         </div>
 
         <div class="flex-grow text-center sm:text-left w-full">
-          <h3 class="text-xl font-medium text-primary mb-2 js-title"></h3>
+          <h3
+            class="text-lg sm:text-xl font-medium text-primary mb-2 js-title truncate max-w-full"
+          ></h3>
 
-          <div class="grid grid-cols-2 gap-4 max-w-md mx-auto sm:mx-0 mb-4">
+          <div
+            class="grid grid-cols-2 gap-4 max-w-md mx-auto sm:mx-0 mb-4 sm:mb-4"
+          >
             <div>
-              <p class="text-xs text-slate-500 uppercase">Ends at</p>
-              <p class="text-sm text-slate-700 js-ends">Dec 31, 2025</p>
+              <p
+                class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider"
+              >
+                Ends at
+              </p>
+              <p class="text-sm text-slate-700 js-ends font-medium">
+                Dec 31, 2025
+              </p>
             </div>
             <div>
-              <p class="text-xs text-slate-500">Current Bid</p>
+              <p
+                class="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider"
+              >
+                Current Bid
+              </p>
               <p class="text-sm font-bold text-secondary js-bid">0 Credits</p>
             </div>
           </div>
 
           <a
-            class="inline-block bg-secondary hover:bg-hover font-primary text-white text-sm font-medium px-6 py-2 rounded-lg transition-colors js-btn"
+            class="inline-block w-full sm:w-auto text-center bg-secondary hover:bg-hover font-primary text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors js-btn hover:shadow-md"
           >
             View Details
           </a>
