@@ -28,7 +28,7 @@ export function Navbar() {
   if (isLoggedIn) {
     // --- LOGGED IN STATE ---
 
-    // Desktop: Credits + Avatar
+    // Desktop Credits + Avatar
     desktopAuth = `
       <div class="hidden md:flex items-center gap-6 relative">
         <div class="flex items-center gap-2 text-slate-600 font-medium">
@@ -57,7 +57,7 @@ export function Navbar() {
       </div>
     `;
 
-    // Mobile: Credits + Profile Link + Logout
+    // Mobile Credits + Profile Link + Logout
     mobileAuth = `
       <div class="pt-4 border-t border-slate-100">
         <div class="flex items-center justify-between mb-4">
