@@ -1,6 +1,6 @@
 import { API_AUCTION_PROFILES } from "../constants.js";
 
-export async function updateProfile(name, { avatar, banner }) {
+export async function updateProfile(name, { avatar, banner, bio }) {
   const token = localStorage.getItem("token");
 
   const response = await fetch(`${API_AUCTION_PROFILES}/${name}`, {
@@ -11,6 +11,7 @@ export async function updateProfile(name, { avatar, banner }) {
       "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
     },
     body: JSON.stringify({
+      bio: bio,
       avatar: { url: avatar, alt: `${name}'s avatar` },
       banner: { url: banner, alt: `${name}'s banner` },
     }),

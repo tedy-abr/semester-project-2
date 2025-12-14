@@ -7,67 +7,68 @@
     <link href="./src/style.css" rel="stylesheet" />
   </head>
 
-  <body class="bg-slate-50 flex flex-col min-h-screen">
+  <body>
     <header id="header"></header>
 
-    <main class="flex-grow">
-      <div class="relative mb-24">
-        <div class="w-full h-64 md:h-80 bg-slate-200 overflow-hidden">
-          <img
-            id="profile-banner"
-            class="w-full h-full object-cover"
-            src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1500&q=80"
-            alt="Profile Banner"
-          />
+    <main>
+      <div class="container-custom py-12">
+        <div class="relative mb-24">
+          <div class="w-full h-80 overflow-hidden rounded-2xl">
+            <img
+              id="profile-banner"
+              class="w-full h-full object-cover"
+              src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=1500&q=80"
+              alt="Profile Banner"
+            />
+          </div>
+
+          <div class="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+            <img
+              id="profile-avatar"
+              class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-md object-cover bg-white"
+              src="https://via.placeholder.com/150"
+              alt="Avatar"
+            />
+          </div>
         </div>
 
-        <div class="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
-          <img
-            id="profile-avatar"
-            class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white shadow-md object-cover bg-white"
-            src="https://via.placeholder.com/150"
-            alt="Avatar"
-          />
+        <div class="container-custom text-center mb-12">
+          <h1 id="profile-name" class="text-3xl font-bold text-primary mb-3">
+            Loading...
+          </h1>
+          <p id="profile-email" class="text-slate-500 mb-4 font-light"></p>
+          <p id="profile-credits" class="text-slate-400 text-sm mb-6 hidden">
+            Credits: 0
+          </p>
+          <p
+            id="profile-bio"
+            class="text-slate-600 italic mb-6 max-w-2xl mx-auto leading-relaxed"
+          ></p>
+
+          <a
+            id="edit-profile-link"
+            href="/edit-profile.html"
+            class="bg-secondary hover:bg-hover text-white px-8 py-3 font-semibold rounded-xl text-base font-primary hidden inline-block transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+          >
+            Edit profile
+          </a>
         </div>
-      </div>
 
-      <div class="container-custom text-center mb-12">
-        <h1
-          id="profile-name"
-          class="text-3xl font-bold text-heading-color mb-2"
-        >
-          Loading...
-        </h1>
-        <p id="profile-email" class="text-slate-500 mb-4 font-light"></p>
-        <p id="profile-credits" class="text-slate-400 text-sm mb-6 hidden">
-          Credits: 0
-        </p>
+        <div class="pb-20">
+          <section class="mb-12">
+            <h2 class="text-4xl font-bold text-primary mb-6">My listings</h2>
+            <div id="listings-grid" class="flex flex-col gap-4">
+              <p class="text-slate-400 text-center py-4">No listings found.</p>
+            </div>
+          </section>
 
-        <a
-          id="edit-profile-link"
-          href="/edit-profile.html"
-          class="bg-primary hover:bg-blue-600 text-white font-medium px-6 py-2 rounded-full transition-colors shadow-sm hidden inline-block"
-        >
-          Edit profile
-        </a>
-      </div>
-
-      <div class="container-custom pb-20">
-        <section class="mb-12">
-          <h2 class="text-2xl font-bold text-heading-color mb-6">
-            My listings
-          </h2>
-          <div id="listings-grid" class="flex flex-col gap-4">
-            <p class="text-slate-400 text-center py-4">No listings found.</p>
-          </div>
-        </section>
-
-        <section id="bids-section" class="mb-12 hidden">
-          <h2 class="text-2xl font-bold text-heading-color mb-6">My bids</h2>
-          <div id="bids-grid" class="flex flex-col gap-4">
-            <p class="text-slate-400 text-center py-4">No bids placed yet.</p>
-          </div>
-        </section>
+          <section id="bids-section" class="mb-12 hidden">
+            <h2 class="text-2xl font-bold text-heading-color mb-6">My bids</h2>
+            <div id="bids-grid" class="flex flex-col gap-4">
+              <p class="text-slate-400 text-center py-4">No bids placed yet.</p>
+            </div>
+          </section>
+        </div>
       </div>
     </main>
 

@@ -51,3 +51,30 @@ export async function readProfileListings(name) {
 
   return json.data;
 }
+
+export async function readProfileBids(name) {
+  const token = localStorage.getItem("token");
+  const headers = {
+    "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  // Fetch bids made by user & include the listing details
+  const response = await fetch(
+    `${API_AUCTION_PROFILES}/${name}/bids?_listings=true`,
+    {
+      headers: headers,
+    }
+  );
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Could not fetch user bids");
+  }
+
+  return json.data;
+}
