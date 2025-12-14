@@ -1,19 +1,18 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
-import { resolve } from "path";
 
 export default defineConfig({
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        login: resolve(__dirname, "login.html"),
-        register: resolve(__dirname, "register.html"),
-        profile: resolve(__dirname, "profile.html"),
-        details: resolve(__dirname, "details.html"),
-        create: resolve(__dirname, "create-listing.html"),
-        edit: resolve(__dirname, "edit-profile.html"),
+        main: "./index.html",
+        login: "./login.html",
+        register: "./register.html",
+        profile: "./profile.html",
+        details: "./details.html",
+        create: "./create-listing.html",
+        edit: "./edit-profile.html",
       },
     },
   },
