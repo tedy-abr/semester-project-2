@@ -11,16 +11,21 @@
     <header id="header"></header>
 
     <main>
-      <div class="container-custom py-12">
-        <section id="hero-section" class="text-center w-full mb-16">
-          <h1 class="text-6xl font-bold text-heading-color mt-10 mb-6">
+      <div class="container-custom py-8 sm:py-12 px-4">
+        <section id="hero-section" class="text-center w-full mb-12 sm:mb-16">
+          <h1
+            class="text-4xl sm:text-5xl lg:text-6xl font-bold text-heading-color mt-6 sm:mt-10 mb-4 sm:mb-6 leading-tight"
+          >
             Find your next great deal
           </h1>
-          <p class="text-3xl font-light text-heading-color mb-6">
+
+          <p
+            class="text-lg sm:text-xl lg:text-3xl font-light text-heading-color mb-8 sm:mb-10 leading-relaxed max-w-2xl mx-auto"
+          >
             Browse live auctions from trusted sellers
           </p>
 
-          <form id="search-form" class="relative max-w-lg mx-auto">
+          <form id="search-form" class="relative max-w-lg mx-auto w-full">
             <span
               class="material-symbols-outlined absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-secondary"
             >
@@ -30,18 +35,20 @@
             <input
               type="search"
               name="search"
-              placeholder="Search auctions, categories or keywords..."
+              placeholder="Search auctions..."
               class="w-full bg-white py-3.5 pl-12 pr-6 text-base rounded-xl border border-gray-200 text-slate-600 focus:border-secondary focus:ring-2 focus:ring-secondary focus:ring-opacity-20 outline-none transition-all shadow-sm hover:shadow-md placeholder:text-gray-400"
             />
           </form>
         </section>
 
         <section
-          class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4"
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4"
         >
-          <h2 class="text-2xl font-bold text-primary">Live listings</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-primary">
+            Live listings
+          </h2>
 
-          <div class="relative">
+          <div class="relative w-full sm:w-auto">
             <span
               class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-500 font-medium pointer-events-none"
             >
@@ -50,7 +57,7 @@
 
             <select
               id="sort"
-              class="appearance-none w-full bg-white border border-gray-200 rounded-xl text-slate-700 py-2.5 pl-14 pr-10 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary cursor-pointer shadow-sm hover:shadow-md font-medium hover:border-secondary transition-colors font-primary text-base"
+              class="appearance-none w-full sm:w-auto bg-white border border-gray-200 rounded-xl text-slate-700 py-2.5 pl-14 pr-10 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary cursor-pointer shadow-sm hover:shadow-md font-medium hover:border-secondary transition-colors font-primary text-base"
             >
               <option value="created_desc">Newest First</option>
               <option value="created_asc">Oldest First</option>
@@ -67,7 +74,7 @@
 
         <div
           id="listings-grid"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
         >
           <div class="col-span-full text-center py-20 text-slate-400">
             Loading auctions...
@@ -88,22 +95,21 @@
               ></div>
             </div>
 
-            <!-- Listing Content -->
             <div class="p-4 flex flex-col flex-1">
               <h3
-                class="text-lg font-medium text-primary mb-2 font-primary js-title"
+                class="text-lg font-medium text-primary mb-2 font-primary js-title line-clamp-1"
               ></h3>
 
               <div class="flex justify-between items-center text-sm mb-6">
-                <div class="flex gap-2">
+                <div class="flex gap-2 items-center">
                   <span class="text-primary text-base">By</span>
                   <a
-                    class="text-secondary text-base font-medium hover:underline js-seller"
+                    class="text-secondary text-base font-medium hover:underline js-seller truncate max-w-[100px]"
                   ></a>
                 </div>
 
                 <span
-                  class="js-created text-gray-500 text-sm font-light"
+                  class="js-created text-gray-500 text-sm font-light whitespace-nowrap"
                 ></span>
               </div>
 
@@ -150,17 +156,19 @@
             </div>
           </div>
         </template>
+
         <template id="create-listing-btn-template">
-          <div class="mt-8">
+          <div class="mt-8 flex justify-center">
             <a
               href="/create-listing.html"
-              class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-base font-semibold font-primary px-8 py-3.5 rounded-xl shadow-md transition-all transform hover:scale-105 hover:shadow-lg"
+              class="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-base font-semibold font-primary px-8 py-3.5 rounded-xl shadow-md transition-all transform hover:scale-105 hover:shadow-lg w-full sm:w-auto justify-center"
             >
               <span class="material-symbols-outlined font-semibold">add</span>
               Create Listing
             </a>
           </div>
         </template>
+
         <template id="quick-bid-template">
           <div class="bid-form-container mb-3">
             <input
@@ -176,7 +184,6 @@
           </div>
         </template>
 
-        <!-- Pagination -->
         <template id="pagination-template">
           <div
             class="col-span-full flex justify-center items-center gap-4 mt-8 pb-8"
