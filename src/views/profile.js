@@ -18,18 +18,20 @@ async function loadProfile() {
   const isOwnProfile = profileName === loggedInUser;
 
   try {
-    // Fetch data in parallel
-    const [profile, listings, bids] = await Promise.all([
-      readProfile(profileName),
-      readProfileListings(profileName),
-      readProfileBids(profileName),
-    ]);
+    const profile = await readProfile(profileName);
+    const listings = await readProfileListings(profileName);
+
+    // Fetch bids only if it is logged in user
+    let bids = [];
+    if (isOwnProfile) {
+      bids = await readProfileBids(profileName);
+    }
 
     document.title = `${profile.name} | NidarBid`;
     document.querySelector("#profile-name").textContent = profile.name;
     document.querySelector("#profile-email").textContent = profile.email;
 
-    // Render Bio
+    // Bio
     const bioEl = document.querySelector("#profile-bio");
     if (bioEl) {
       bioEl.textContent = profile.bio || "No about me info yet.";
@@ -48,22 +50,45 @@ async function loadProfile() {
       avatar.alt = profile.avatar.alt || "Avatar";
     }
 
-    // Show private info if own profile
-    if (isOwnProfile) {
-      const creditEl = document.querySelector("#profile-credits");
-      const editLink = document.querySelector("#edit-profile-link");
+    // Handle UI based on Ownership
+    const editLink = document.querySelector("#edit-profile-link");
+    const listingsTitle = document.querySelector("#listings-title");
+    const creditEl = document.querySelector("#profile-credits");
 
+    if (isOwnProfile) {
+      if (editLink) editLink.classList.remove("hidden");
       if (creditEl) {
         creditEl.textContent = `Total Credits: ${profile.credits}`;
         creditEl.classList.remove("hidden");
       }
+      if (listingsTitle) listingsTitle.textContent = "My listings";
 
-      if (editLink) {
-        editLink.classList.remove("hidden");
+      // Render user Bids
+      const bidsSection = document.querySelector("#bids-section");
+      const bidsGrid = document.querySelector("#bids-grid");
+
+      if (bids.length > 0 && bidsSection && bidsGrid) {
+        bidsSection.classList.remove("hidden");
+        bidsGrid.innerHTML = "";
+        const template = document.querySelector("#profile-listing-template");
+
+        bids.forEach((bid) => {
+          const item = bid.listing;
+          if (!item) return;
+          const clone = template.content.cloneNode(true);
+          fillCard(clone, item, true, bid.amount);
+          bidsGrid.append(clone);
+        });
       }
+    } else {
+      if (editLink) editLink.classList.add("hidden");
+      if (creditEl) creditEl.classList.add("hidden");
+
+      if (listingsTitle)
+        listingsTitle.textContent = `${profile.name}'s listings`;
     }
 
-    // Render My Listings
+    // Render Listings
     const listingsGrid = document.querySelector("#listings-grid");
     listingsGrid.innerHTML = "";
 
@@ -75,29 +100,7 @@ async function loadProfile() {
         listingsGrid.append(clone);
       });
     } else {
-      listingsGrid.innerHTML = `<p class="text-slate-400 text-center py-4">No listings active.</p>`;
-    }
-
-    // Render My Bids
-    const bidsSection = document.querySelector("#bids-section");
-    const bidsGrid = document.querySelector("#bids-grid");
-
-    if (bids.length > 0) {
-      // Unhide section
-      bidsSection.classList.remove("hidden");
-      bidsGrid.innerHTML = "";
-
-      const template = document.querySelector("#profile-listing-template");
-
-      bids.forEach((bid) => {
-        const item = bid.listing;
-        if (!item) return;
-
-        const clone = template.content.cloneNode(true);
-        fillCard(clone, item, true, bid.amount);
-
-        bidsGrid.append(clone);
-      });
+      listingsGrid.innerHTML = `<p class="text-slate-400 text-center py-4">No active listings.</p>`;
     }
   } catch (error) {
     console.error(error);
@@ -105,7 +108,6 @@ async function loadProfile() {
   }
 }
 
-// Helper to fill the card
 function fillCard(clone, item, isBidItem, myBidAmount = 0) {
   const img = clone.querySelector(".js-img");
   img.src = item.media?.[0]?.url || "https://via.placeholder.com/150";
@@ -115,6 +117,7 @@ function fillCard(clone, item, isBidItem, myBidAmount = 0) {
 
   const date = new Date(item.endsAt).toLocaleDateString();
   clone.querySelector(".js-ends").textContent = date;
+
   const bidLabel = clone.querySelector(".js-bid");
   const bidTitleLabel = bidLabel.previousElementSibling;
 
