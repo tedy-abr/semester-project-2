@@ -63,6 +63,31 @@ async function loadHomePage() {
       listings.forEach((listing) => {
         const cardElement = ListingCard(listing);
 
+        // Handle seller link based on Auth
+        const sellerLink = cardElement.querySelector(".js-seller");
+        if (sellerLink) {
+          if (isLoggedIn) {
+            sellerLink.href = `/profile.html?name=${listing.seller.name}`;
+          } else {
+            sellerLink.removeAttribute("href");
+            sellerLink.classList.remove("text-secondary", "hover:underline");
+            sellerLink.classList.add("text-slate-500", "cursor-default");
+            sellerLink.title = "Log in to view seller profile";
+          }
+        }
+
+        // Handle bidder Link based on Auth
+        const bidderLink = cardElement.querySelector(".js-bidder-name");
+        if (bidderLink) {
+          if (!isLoggedIn) {
+            // Disable the link for guests
+            bidderLink.removeAttribute("href");
+            bidderLink.classList.remove("hover:underline");
+            bidderLink.classList.add("text-slate-500", "cursor-default");
+            bidderLink.title = "Log in to view bidder profile";
+          }
+        }
+
         if (isLoggedIn) {
           const authMessage = cardElement.querySelector(
             ".text-xs.text-heading-color.mb-3"
@@ -126,7 +151,6 @@ function onSortChange(event) {
 
   // Split the value
   const [sort, order] = value.split("_");
-
   currentSort = sort;
   currentSortOrder = order;
   currentPage = 1;
