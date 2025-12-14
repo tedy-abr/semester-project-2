@@ -76,11 +76,10 @@ async function loadHomePage() {
           }
         }
 
-        // Handle bidder Link based on Auth
+        // Handle Bidder Link based on Auth
         const bidderLink = cardElement.querySelector(".js-bidder-name");
         if (bidderLink) {
           if (!isLoggedIn) {
-            // Disable the link for guests
             bidderLink.removeAttribute("href");
             bidderLink.classList.remove("hover:underline");
             bidderLink.classList.add("text-slate-500", "cursor-default");
@@ -90,7 +89,7 @@ async function loadHomePage() {
 
         if (isLoggedIn) {
           const authMessage = cardElement.querySelector(
-            ".text-xs.text-heading-color.mb-3"
+            ".text-sm.text-center.text-gray-600"
           );
           if (authMessage) authMessage.remove();
 
@@ -148,9 +147,8 @@ function onSearchSubmit(event) {
 // Handle Sort Change
 function onSortChange(event) {
   const value = event.target.value;
-
-  // Split the value
   const [sort, order] = value.split("_");
+
   currentSort = sort;
   currentSortOrder = order;
   currentPage = 1;
