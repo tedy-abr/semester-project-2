@@ -1,13 +1,13 @@
 export function ListingCard(listing) {
   const { id, title, media, _count, endsAt, seller, created, bids } = listing;
 
-  // Find the template blueprint
+  // Find template blueprint
   const template = document.querySelector("#listing-template");
   if (!template) {
     return document.createElement("div");
   }
 
-  // Clone the template content
+  // Clone template content
   const clone = template.content.cloneNode(true);
 
   const imageUrl =
@@ -24,8 +24,9 @@ export function ListingCard(listing) {
     dateOptions
   );
 
-  const bidAmount = _count?.bids || 0;
   const lastBid = bids && bids.length > 0 ? bids[bids.length - 1] : null;
+  const currentBidPrice = lastBid ? lastBid.amount : 0;
+
   const img = clone.querySelector(".js-img");
   img.src = imageUrl;
   img.alt = imageAlt;
@@ -45,9 +46,9 @@ export function ListingCard(listing) {
 
   // Date
   clone.querySelector(".js-created").textContent = `Posted ${formattedCreated}`;
-
-  // Bid Amount
-  clone.querySelector(".js-bid-amount").textContent = `${bidAmount} Credits`;
+  clone.querySelector(
+    ".js-bid-amount"
+  ).textContent = `${currentBidPrice} Credits`;
 
   // Bidder Name
   if (lastBid?.bidder?.name) {
