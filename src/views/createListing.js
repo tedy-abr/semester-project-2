@@ -6,14 +6,12 @@ async function handleCreateListing(event) {
   const form = event.target;
   const formData = new FormData(form);
 
-  // Raw values
   const title = formData.get("title");
   const description = formData.get("description");
   const tagsString = formData.get("tags");
   const mediaUrl = formData.get("mediaUrl");
   const endsAt = formData.get("endsAt");
 
-  // Format data for API
   const tags = tagsString
     ? tagsString
         .split(",")
@@ -40,7 +38,7 @@ async function handleCreateListing(event) {
   }
 }
 
-// Check if user is logged in immediately
+// Auth Check
 const token = localStorage.getItem("token");
 if (!token) {
   alert("You must be logged in to create a listing.");
@@ -49,5 +47,35 @@ if (!token) {
   const form = document.querySelector("#create-listing-form");
   if (form) {
     form.addEventListener("submit", handleCreateListing);
+
+    // Prevent past dates
+    const dateInput = document.querySelector("#ends-at-input");
+    if (dateInput) {
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      dateInput.min = now.toISOString().slice(0, 16);
+    }
+
+    // Image preview
+    const urlInput = document.querySelector("#media-url-input");
+    const previewContainer = document.querySelector("#image-preview");
+    const previewImg = document.querySelector("#preview-img");
+
+    if (urlInput && previewContainer && previewImg) {
+      urlInput.addEventListener("input", (e) => {
+        const url = e.target.value;
+        if (url) {
+          previewImg.src = url;
+          previewContainer.classList.remove("hidden");
+        } else {
+          previewContainer.classList.add("hidden");
+        }
+      });
+
+      // Handle broken image
+      previewImg.addEventListener("error", () => {
+        previewContainer.classList.add("hidden");
+      });
+    }
   }
 }

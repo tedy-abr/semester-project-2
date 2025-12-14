@@ -38,7 +38,7 @@
   h6,
   button,
   .nav-link {
-    font-family: var(--font-heading);
+    font-family: var(--font-primary);
   }
 
   button {

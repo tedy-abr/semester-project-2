@@ -7,102 +7,105 @@
     <link href="./src/style.css" rel="stylesheet" />
   </head>
 
-  <body class="bg-slate-50 flex flex-col min-h-screen">
+  <body>
     <header id="header"></header>
 
-    <main class="flex-grow container-custom py-12">
-      <div
-        class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-100"
-      >
-        <h1 class="text-3xl font-bold text-heading-color mb-2">
+    <main>
+      <div class="flex-grow container-custom py-12">
+        <h1 class="text-4xl font-semibold text-primary mb-10 text-center">
           Create New Listing
         </h1>
-        <p class="text-slate-500 mb-8">
-          Fill in the details to sell your item.
-        </p>
-
-        <form id="create-listing-form" class="flex flex-col gap-6">
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2"
-              >Title <span class="text-red-500">*</span></label
-            >
-            <input
-              type="text"
-              name="title"
-              required
-              placeholder="e.g. Vintage Camera"
-              class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2"
-              >Description</label
-            >
-            <textarea
-              name="description"
-              rows="4"
-              placeholder="Tell us about the item..."
-              class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none resize-none"
-            ></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2"
-              >Tags</label
-            >
-            <input
-              type="text"
-              name="tags"
-              placeholder="electronics, vintage, sale (comma separated)"
-              class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2"
-              >Image URL <span class="text-red-500">*</span></label
-            >
-            <div class="flex gap-2">
+        <div
+          class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-sm border border-slate-100"
+        >
+          <form id="create-listing-form" class="flex flex-col gap-6">
+            <div>
+              <label class="block text-xl text-gray-700 font-semibold mb-3"
+                >Title</label
+              >
               <input
-                type="url"
-                name="mediaUrl"
+                type="text"
+                name="title"
                 required
-                placeholder="https://example.com/image.jpg"
-                class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                placeholder="e.g. Vintage Camera"
+                class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary outline-none"
               />
             </div>
-            <p class="text-xs text-slate-400 mt-1">
-              For now, just one main image required.
-            </p>
-          </div>
 
-          <div>
-            <label class="block text-sm font-medium text-slate-700 mb-2"
-              >Auction Ends At <span class="text-red-500">*</span></label
-            >
-            <input
-              type="datetime-local"
-              name="endsAt"
-              required
-              class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
-            />
-          </div>
+            <div>
+              <label class="block text-xl text-gray-700 font-semibold mb-3"
+                >Description</label
+              >
+              <textarea
+                name="description"
+                rows="4"
+                placeholder="Tell us about the item..."
+                class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary outline-none resize-none"
+              ></textarea>
+            </div>
 
-          <div class="flex gap-4 mt-4">
-            <a
-              href="/"
-              class="px-6 py-3 text-slate-500 hover:text-slate-700 font-medium"
-              >Cancel</a
-            >
-            <button
-              type="submit"
-              class="flex-grow bg-primary hover:bg-blue-600 text-white font-bold py-3 rounded-lg transition-colors shadow-sm"
-            >
-              Publish Listing
-            </button>
-          </div>
-        </form>
+            <div>
+              <label class="block text-xl text-gray-700 font-semibold mb-3"
+                >Tags</label
+              >
+              <input
+                type="text"
+                name="tags"
+                placeholder="electronics, vintage, sale (comma separated)"
+                class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary outline-none"
+              />
+            </div>
+
+            <div>
+              <label class="block text-xl text-gray-700 font-semibold mb-3"
+                >Image URL
+              </label>
+              <div class="space-y-3">
+                <input
+                  type="url"
+                  name="mediaUrl"
+                  id="media-url-input"
+                  required
+                  placeholder="https://example.com/image.jpg"
+                  class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary outline-none"
+                />
+                <div
+                  id="image-preview"
+                  class="hidden w-full h-48 bg-gray-50 rounded-lg border border-dashed border-gray-300 flex items-center justify-center overflow-hidden"
+                >
+                  <img id="preview-img" class="h-full w-full object-contain" />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xl text-gray-700 font-semibold mb-3"
+                >Auction Ends At</label
+              >
+              <input
+                type="datetime-local"
+                name="endsAt"
+                id="ends-at-input"
+                required
+                class="w-full px-4 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-secondary outline-none"
+              />
+            </div>
+
+            <div class="flex gap-4 mt-4">
+              <a
+                href="/"
+                class="px-6 py-3 text-slate-500 hover:text-slate-700 font-medium flex items-center justify-center"
+                >Cancel</a
+              >
+              <button
+                type="submit"
+                class="flex-grow bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 text-lg rounded-xl shadow-md hover:shadow-lg hover:scale-[1.02] transition-all transform hover:scale-105 active:scale-95"
+              >
+                Create Listing
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </main>
 
