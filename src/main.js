@@ -1,8 +1,10 @@
 import "./style.css";
 import { Navbar } from "./components/Navbar.js";
+import { Footer } from "./components/Footer.js";
 
 function initApp() {
   const header = document.querySelector("#header");
+  const footer = document.querySelector("#footer");
 
   if (header) {
     // Render Navbar
@@ -50,6 +52,11 @@ function initApp() {
     if (logoutBtn) logoutBtn.addEventListener("click", handleLogout);
     if (mobileLogoutBtn)
       mobileLogoutBtn.addEventListener("click", handleLogout);
+  }
+
+  if (footer) {
+    // Render Footer
+    footer.innerHTML = Footer();
   }
 }
 
