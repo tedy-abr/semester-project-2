@@ -8,7 +8,7 @@ NidarBid is a dynamic, responsive front-end web application for a modern auction
 
 ## Live Demo & Repository
 
-- **Live Site:** [https://nidarbid.netlify.app/](#)
+- **Live Site:** [https://nidarbid.netlify.app/](https://nidarbid.netlify.app/)
 - **GitHub Repository:** [https://github.com/tedy-abr/semester-project-2](https://github.com/tedy-abr/semester-project-2)
 
 ## Tech Stack
